@@ -1,0 +1,864 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/Shortcut/@EntryValue">je_admin_custom</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/Description/@EntryValue">get a domain admin object</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/Text/@EntryValue">var $DATA_SERVICE$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;joaFramework.Services.joaIDataService&gt;();&#xD;
+var $ADMIN$ = $DATA_SERVICE$.GetDomainObjectAdmin&lt;$ADMIN_TYPE_IItemCollection$&gt;();&#xD;
+$END$&#xD;
+</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/Field/=DATA_005FSERVICE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/Field/=DATA_005FSERVICE/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/Field/=DATA_005FSERVICE/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/Field/=ADMIN_005FTYPE_005FIItemCollection/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/Field/=ADMIN_005FTYPE_005FIItemCollection/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/Field/=ADMIN/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/Field/=ADMIN/Expression/@EntryValue">arrayVariable()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AA1750BD6C492344B2955B88DC09474C/Field/=ADMIN/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Shortcut/@EntryValue">je_checkHangingLocks</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Description/@EntryValue">check and clear locks on domain objects</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Text/@EntryValue">if ($ADMIN$ != null)&#xD;
+{&#xD;
+    foreach (joaRemotingObjects.joaItem $JOAITEM$ in $ADMIN$)&#xD;
+    {&#xD;
+        if ($JOAITEM$ is joaBasicObjects.joaIDomainObject)&#xD;
+        {&#xD;
+            var $JOAIDOMAINOBJECT$ = $JOAITEM$ as joaBasicObjects.joaIDomainObject;&#xD;
+&#xD;
+            if ($JOAIDOMAINOBJECT$.IsAnyWriteLocked() || $JOAIDOMAINOBJECT$.IsAnyReadLocked())&#xD;
+            {&#xD;
+                var $IMESSAGESERVICE$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;Joa.JewelEarth.Services.IMessageService&gt;();&#xD;
+                $IMESSAGESERVICE$.LogMessage("Hanging lock on detached object {0}", $JOAITEM$.Name);&#xD;
+                $JOAIDOMAINOBJECT$.UnsafeClearAllLocks();&#xD;
+            }&#xD;
+        }&#xD;
+    }&#xD;
+}&#xD;
+$END$&#xD;
+&#xD;
+</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Field/=ADMIN/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Field/=ADMIN/Expression/@EntryValue">variableOfType("Joa.JewelEarth.Basics.IItemCollection")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Field/=ADMIN/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Field/=JOAITEM/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Field/=JOAITEM/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Field/=JOAITEM/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Field/=JOAIDOMAINOBJECT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Field/=JOAIDOMAINOBJECT/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Field/=JOAIDOMAINOBJECT/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Field/=IMESSAGESERVICE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Field/=IMESSAGESERVICE/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AF533144507556429AC78BD78ADB2E0E/Field/=IMESSAGESERVICE/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Shortcut/@EntryValue">je_cmd_create2DGrid</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Description/@EntryValue">create a 2d grid</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Text/@EntryValue">&#xD;
+var $FACTORY_NAME$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;Joa.JewelEarth.Services.IFactoryService&gt;();&#xD;
+var createGridCommand = $FACTORY_NAME$.Create&lt;joaControlCommand.joaICommandCreateGrid2d&gt;();&#xD;
+createGridCommand.SetColor($RED$, $GREEN$, $BLUE$, $ALPHA$);&#xD;
+createGridCommand.SetName("$GRID_NAME$");&#xD;
+createGridCommand.SetUnitSystem($NORTHING_UNIT$, $EASTING_UNIT$, $TVSS_UNIT$, $INCLINATION_UNIT$, $AZIMUTH_UNIT$);&#xD;
+createGridCommand.SetParameters($NORTHING_START_POS$, $EASTING_START_POS$, $NORTHING_END_POS$, $EASTING_END_POS$, $NORTH_STEPS$, $EAST_STEPS$, Joa.JewelEarth.Basics.Undefined.Double);&#xD;
+&#xD;
+for (int i = 0; i &lt; $NORTH_STEPS$ * $EAST_STEPS$; i++)&#xD;
+{&#xD;
+    createGridCommand.AddDepthValue($DEPTH$);&#xD;
+}&#xD;
+$END$</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=FACTORY_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=FACTORY_005FNAME/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=FACTORY_005FNAME/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=RED/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=RED/Expression/@EntryValue">constant("0.56f")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=RED/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=GREEN/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=GREEN/Expression/@EntryValue">constant("0.56f")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=GREEN/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=BLUE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=BLUE/Expression/@EntryValue">constant("0.56f")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=BLUE/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=ALPHA/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=ALPHA/Expression/@EntryValue">constant("0.56f")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=ALPHA/Order/@EntryValue">4</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=GRID_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=GRID_005FNAME/Order/@EntryValue">5</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=NORTHING_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=NORTHING_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=NORTHING_005FUNIT/Order/@EntryValue">6</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=EASTING_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=EASTING_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=EASTING_005FUNIT/Order/@EntryValue">7</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=TVSS_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=TVSS_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\",\"s\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=TVSS_005FUNIT/Order/@EntryValue">8</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=INCLINATION_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=INCLINATION_005FUNIT/Expression/@EntryValue">list("\"deg\",\"rad\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=INCLINATION_005FUNIT/Order/@EntryValue">9</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=AZIMUTH_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=AZIMUTH_005FUNIT/Expression/@EntryValue">list("\"deg\",\"rad\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=AZIMUTH_005FUNIT/Order/@EntryValue">10</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=NORTHING_005FSTART_005FPOS/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=NORTHING_005FSTART_005FPOS/Order/@EntryValue">11</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=EASTING_005FSTART_005FPOS/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=EASTING_005FSTART_005FPOS/Order/@EntryValue">12</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=NORTHING_005FEND_005FPOS/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=NORTHING_005FEND_005FPOS/Order/@EntryValue">13</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=EASTING_005FEND_005FPOS/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=EASTING_005FEND_005FPOS/Order/@EntryValue">14</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=NORTH_005FSTEPS/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=NORTH_005FSTEPS/Order/@EntryValue">15</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=EAST_005FSTEPS/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=EAST_005FSTEPS/Order/@EntryValue">16</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=DEPTH/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=DEPTH/Expression/@EntryValue">constant("0")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=DEC7181703DA5C4D9887525B4176D396/Field/=DEPTH/Order/@EntryValue">17</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Shortcut/@EntryValue">je_cmd_create3dMesh</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Description/@EntryValue">creates a 3d mesh with fake data</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Text/@EntryValue">var $FACTORY_NAME$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;Joa.JewelEarth.Services.IFactoryService&gt;();&#xD;
+var $COMMAND$ = $FACTORY_NAME$.Create&lt;joaControlCommand.joaICommandCreateMesh3dGeom&gt;();&#xD;
+&#xD;
+$COMMAND$.SetName("$MESH_NAME$");&#xD;
+$COMMAND$.SetUnitSystem($NORTHING_UNIT$, $EASTING_UNIT$, $TVSS_UNIT$, $INCLINATION_UNIT$, $AZIMUTH_UNIT$);&#xD;
+&#xD;
+var fakeNodes = new[]&#xD;
+{&#xD;
+    new {Id = 0, Northing = 100, Easting = 100, Depth = 10},&#xD;
+    new {Id = 1, Northing = 100, Easting = 200, Depth = 10},&#xD;
+    new {Id = 2, Northing = 200, Easting = 100, Depth = 10},&#xD;
+    new {Id = 3, Northing = 200, Easting = 200, Depth = 10},&#xD;
+    new {Id = 4, Northing = 100, Easting = 100, Depth = 30},&#xD;
+    new {Id = 5, Northing = 100, Easting = 200, Depth = 30},&#xD;
+    new {Id = 6, Northing = 200, Easting = 100, Depth = 30},&#xD;
+    new {Id = 7, Northing = 200, Easting = 200, Depth = 30},&#xD;
+};&#xD;
+&#xD;
+foreach (var node in fakeNodes)&#xD;
+{&#xD;
+    $COMMAND$.AddNode(node.Id, node.Northing, node.Easting, node.Depth);&#xD;
+}&#xD;
+&#xD;
+var fakseElements = new[]&#xD;
+{&#xD;
+    new {Id = 0u, NodeId1 = 0u, NodeId2 = 1u, NodeId3 = 2u, NodeId4 = 3u },&#xD;
+    new {Id = 1u, NodeId1 = 0u, NodeId2 = 1u, NodeId3 = 4u, NodeId4 = 5u },&#xD;
+    new {Id = 2u, NodeId1 = 0u, NodeId2 = 2u, NodeId3 = 4u, NodeId4 = 6u },&#xD;
+    new {Id = 3u, NodeId1 = 2u, NodeId2 = 3u, NodeId3 = 6u, NodeId4 = 7u },&#xD;
+    new {Id = 4u, NodeId1 = 1u, NodeId2 = 3u, NodeId3 = 5u, NodeId4 = 7u },&#xD;
+    new {Id = 5u, NodeId1 = 4u, NodeId2 = 5u, NodeId3 = 6u, NodeId4 = 7u },&#xD;
+};&#xD;
+&#xD;
+foreach (var element in fakseElements)&#xD;
+{&#xD;
+    $COMMAND$.AddElement(element.Id, element.NodeId1, element.NodeId2, element.NodeId3, element.NodeId4);&#xD;
+}&#xD;
+&#xD;
+$END$</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=FACTORY_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=FACTORY_005FNAME/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=FACTORY_005FNAME/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=COMMAND/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=COMMAND/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=COMMAND/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=MESH_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=MESH_005FNAME/Expression/@EntryValue">constant("Mesh_Name")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=MESH_005FNAME/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=NORTHING_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=NORTHING_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=NORTHING_005FUNIT/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=EASTING_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=EASTING_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=EASTING_005FUNIT/Order/@EntryValue">4</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=TVSS_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=TVSS_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\",\"s\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=TVSS_005FUNIT/Order/@EntryValue">5</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=INCLINATION_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=INCLINATION_005FUNIT/Expression/@EntryValue">list("\"deg\",\"rad\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=INCLINATION_005FUNIT/Order/@EntryValue">6</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=AZIMUTH_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=AZIMUTH_005FUNIT/Expression/@EntryValue">list("\"deg\",\"rad\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BB4D10A8C870F34C906C584128D731EE/Field/=AZIMUTH_005FUNIT/Order/@EntryValue">7</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Shortcut/@EntryValue">je_cmd_createPolyLineSet</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Description/@EntryValue">Create PolyLineSet</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Text/@EntryValue">var $IFACTORYSERVICE$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;Joa.JewelEarth.Services.IFactoryService&gt;();&#xD;
+var $JOAICOMMANDCREATEPOLYLINESET$ = $IFACTORYSERVICE$.Create&lt;joaControlCommand.joaICommandCreatePolyLineSet&gt;();&#xD;
+&#xD;
+$JOAICOMMANDCREATEPOLYLINESET$.SetName("$NAME$");&#xD;
+$JOAICOMMANDCREATEPOLYLINESET$.SetColor($RED$, $GREEN$, $BLUE$, $ALPHA$);&#xD;
+$JOAICOMMANDCREATEPOLYLINESET$.SetUnitSystem($NORTHING_UNIT$, $EASTING_UNIT$, $TVSS_UNIT$, $INCLINATION_UNIT$, $AZIMUTH_UNIT$);		&#xD;
+&#xD;
+var fakePolyLineNodes = new[]&#xD;
+{&#xD;
+    new {LineId = 0, NodeId = 0, Northing = 10, Easting = 10, Depth = 10},&#xD;
+    new {LineId = 0, NodeId = 1, Northing = 20, Easting = 20, Depth = 20},&#xD;
+    new {LineId = 0, NodeId = 2, Northing = 30, Easting = 30, Depth = 30},&#xD;
+    new {LineId = 0, NodeId = 3, Northing = 40, Easting = 40, Depth = 40},&#xD;
+    new {LineId = 1, NodeId = 4, Northing = 100, Easting = 10, Depth = 10},&#xD;
+    new {LineId = 1, NodeId = 5, Northing = 110, Easting = 20, Depth = 15},&#xD;
+    new {LineId = 1, NodeId = 6, Northing = 120, Easting = 30, Depth = 20},&#xD;
+    new {LineId = 1, NodeId = 7, Northing = 130, Easting = 40, Depth = 30}&#xD;
+};&#xD;
+&#xD;
+foreach (var node in fakePolyLineNodes)&#xD;
+{&#xD;
+    $JOAICOMMANDCREATEPOLYLINESET$.AddPolyLineNode(node.LineId, node.NodeId, node.Northing, node.Easting, node.Depth);&#xD;
+}&#xD;
+&#xD;
+$END$&#xD;
+</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=IFACTORYSERVICE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=IFACTORYSERVICE/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=IFACTORYSERVICE/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=JOAICOMMANDCREATEPOLYLINESET/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=JOAICOMMANDCREATEPOLYLINESET/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=JOAICOMMANDCREATEPOLYLINESET/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=NAME/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=NAME/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=RED/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=RED/Expression/@EntryValue">constant("0.56f")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=RED/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=GREEN/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=GREEN/Expression/@EntryValue">constant("0.56f")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=GREEN/Order/@EntryValue">4</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=BLUE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=BLUE/Expression/@EntryValue">constant("0.56f")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=BLUE/Order/@EntryValue">5</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=ALPHA/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=ALPHA/Expression/@EntryValue">constant("0.56f")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=ALPHA/Order/@EntryValue">6</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=NORTHING_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=NORTHING_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=NORTHING_005FUNIT/Order/@EntryValue">7</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=EASTING_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=EASTING_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=EASTING_005FUNIT/Order/@EntryValue">8</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=TVSS_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=TVSS_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\",\"s\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=TVSS_005FUNIT/Order/@EntryValue">9</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=INCLINATION_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=INCLINATION_005FUNIT/Expression/@EntryValue">list("\"deg\",\"rad\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=INCLINATION_005FUNIT/Order/@EntryValue">10</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=AZIMUTH_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=AZIMUTH_005FUNIT/Expression/@EntryValue">list("\"deg\",\"rad\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8793E57EFB691C4F9F7284539D58278F/Field/=AZIMUTH_005FUNIT/Order/@EntryValue">11</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Shortcut/@EntryValue">je_cmd_createProperty</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Description/@EntryValue">create a property on an object</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Text/@EntryValue">var $FACTORY_NAME$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;Joa.JewelEarth.Services.IFactoryService&gt;();&#xD;
+&#xD;
+var propertyAccessor = $FACTORY_NAME$.Create&lt;$INHERITS_joaIPropertyAccessorBase$&gt;(); &#xD;
+propertyAccessor.Type(Joa.JewelEarth.Basics.Enums.PropertyAccessorType.$ACCESSOR_TYPE$);&#xD;
+&#xD;
+// Create a collection of values to add to the SetValues method&#xD;
+&#xD;
+var createPropertyCommand = $FACTORY_NAME$.Create&lt;joaObjectsCommand.joaICommandCreateProperty&gt;();&#xD;
+createPropertyCommand.SetObject($OBJECT_FOR_PROPERTY$); &#xD;
+createPropertyCommand.SetOutputProperty("$PROPERTY_NAME$", "$TEMPLATE_NAME$", Joa.JewelEarth.Basics.Enums.PropertyArrayType&#xD;
+.$ARRAY_TYPE$ , $DEFAULT_VALUE$);&#xD;
+createPropertyCommand.$VALUES_METHOD$(propertyAccessor, $VALUES_TO_ADD$); &#xD;$END$&#xD;</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=FACTORY_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=FACTORY_005FNAME/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=FACTORY_005FNAME/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=INHERITS_005FjoaIPropertyAccessorBase/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=INHERITS_005FjoaIPropertyAccessorBase/Expression/@EntryValue">constant("Property_Accessor_For_Domain_Object")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=INHERITS_005FjoaIPropertyAccessorBase/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=ACCESSOR_005FTYPE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=ACCESSOR_005FTYPE/Expression/@EntryValue">list("None,Full,SpecificIndices,SpecificLargeIndices,IndexRange,Time,Chunk,Ranges")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=ACCESSOR_005FTYPE/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=OBJECT_005FFOR_005FPROPERTY/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=OBJECT_005FFOR_005FPROPERTY/Expression/@EntryValue">variableOfType("joaBasicObjects.joaIObject")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=OBJECT_005FFOR_005FPROPERTY/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=PROPERTY_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=PROPERTY_005FNAME/Expression/@EntryValue">constant("New_Property_Name")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=PROPERTY_005FNAME/Order/@EntryValue">4</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=TEMPLATE_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=TEMPLATE_005FNAME/Expression/@EntryValue">list("--Some Examples Template Names--,Area,Density,Depth,Diameter,Electrical Resistance,Gamma Ray,Gas Content,Gas Ratio,K Factor,Mass,Mudd Weight,PermeabilityX,Porosity,Pressure Gradient,Rock Strength,Rotation Speed,velocity,Viscosity,Volume")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=TEMPLATE_005FNAME/Order/@EntryValue">5</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=ARRAY_005FTYPE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=ARRAY_005FTYPE/Expression/@EntryValue">list("Scalar,Cell1D,Node1D,Cell2D,Node2D,Cell3D,Node3D,Undefined,LgrCell3D")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=ARRAY_005FTYPE/Order/@EntryValue">6</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=DEFAULT_005FVALUE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=DEFAULT_005FVALUE/Expression/@EntryValue">constant("0.0")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=DEFAULT_005FVALUE/Order/@EntryValue">7</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=VALUES_005FMETHOD/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=VALUES_005FMETHOD/Expression/@EntryValue">list("SetValuesAsBool,SetValuesAsByte,SetValuesAsDouble,SetValuesAsFloat,SetValuesAsInt,SetValuesAsShort")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=VALUES_005FMETHOD/Order/@EntryValue">8</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=VALUES_005FTO_005FADD/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=VALUES_005FTO_005FADD/Expression/@EntryValue">constant("CollectionOfValuesOfProperties")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8F88FB05A5AB4F4F9EC38693240E964C/Field/=VALUES_005FTO_005FADD/Order/@EntryValue">9</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Shortcut/@EntryValue">je_cmd_createTrimesh</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Description/@EntryValue">create a trimesh with fake nodes and triangels</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Text/@EntryValue">var $FACTORY_NAME$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;Joa.JewelEarth.Services.IFactoryService&gt;();&#xD;
+var createSurfaceCommand = $FACTORY_NAME$.Create&lt;joaControlCommand.joaICommandCreateTSurface&gt;();&#xD;
+&#xD;
+createSurfaceCommand.SetName("$TRIMESH_NAME$");&#xD;
+createSurfaceCommand.SetColor($RED$, $GREEN$, $BLUE$, $ALPHA$);&#xD;
+createSurfaceCommand.SetParameters(Joa.JewelEarth.ReservoirBasicObjects.Enums.GeologicalType.$GEOLOGY_TYPE$);&#xD;
+createSurfaceCommand.SetUnitSystem($NORTHING_UNIT$, $EASTING_UNIT$, $TVSS_UNIT$, $INCLINATION_UNIT$, $AZIMUTH_UNIT$);&#xD;
+&#xD;
+var fakeNodes = new[]&#xD;
+{&#xD;
+    new {Id = 0, Northing = 100.0d, Easting = 100.0d, Tvss = 10.0d},&#xD;
+    new {Id = 1, Northing = 100.0d, Easting = 200.0d, Tvss = 20.0d},&#xD;
+    new {Id = 2, Northing = 100.0d, Easting = 350.0d, Tvss = 15.0d},&#xD;
+    new {Id = 3, Northing = 200.0d, Easting = 100.0d, Tvss = 10.0d},&#xD;
+    new {Id = 4, Northing = 200.0d, Easting = 200.0d, Tvss = 20.0d},&#xD;
+    new {Id = 5, Northing = 200.0d, Easting = 250.0d, Tvss = 15.0d}&#xD;
+};&#xD;
+&#xD;
+foreach (var node in fakeNodes)&#xD;
+{&#xD;
+    createSurfaceCommand.AddNode(node.Id, node.Northing, node.Easting, node.Tvss);&#xD;
+}&#xD;
+&#xD;
+var fakeTriangles = new[]&#xD;
+{&#xD;
+    new {NodeIdA = 0, NodeIdB = 1, NodeIdC = 3},&#xD;
+    new {NodeIdA = 1, NodeIdB = 3, NodeIdC = 4},&#xD;
+    new {NodeIdA = 1, NodeIdB = 4, NodeIdC = 2},&#xD;
+    new {NodeIdA = 2, NodeIdB = 4, NodeIdC = 5}&#xD;
+};&#xD;
+&#xD;
+foreach (var triangle in fakeTriangles)&#xD;
+{&#xD;
+    createSurfaceCommand.AddTriangle(triangle.NodeIdA, triangle.NodeIdB, triangle.NodeIdC);&#xD;
+}&#xD;
+$END$&#xD;</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=FACTORY_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=FACTORY_005FNAME/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=FACTORY_005FNAME/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=TRIMESH_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=TRIMESH_005FNAME/Expression/@EntryValue">constant("Trimesh_Name")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=TRIMESH_005FNAME/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=RED/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=RED/Expression/@EntryValue">constant("0.56f")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=RED/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=GREEN/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=GREEN/Expression/@EntryValue">constant("0.0f")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=GREEN/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=BLUE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=BLUE/Expression/@EntryValue">constant("0.0f")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=BLUE/Order/@EntryValue">4</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=ALPHA/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=ALPHA/Expression/@EntryValue">constant("0.56f")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=ALPHA/Order/@EntryValue">5</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=GEOLOGY_005FTYPE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=GEOLOGY_005FTYPE/Expression/@EntryValue">list("Undefined,Fault,Horizon,Unconformity,Intrusion,FluidContact,Property,Fracture,BedBoundary,MicroSeismic,Map,Boundary,FaultPolygon,FaultCenterLine,Line,Inflection")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=GEOLOGY_005FTYPE/Order/@EntryValue">6</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=NORTHING_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=NORTHING_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=NORTHING_005FUNIT/Order/@EntryValue">7</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=EASTING_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=EASTING_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=EASTING_005FUNIT/Order/@EntryValue">8</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=TVSS_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=TVSS_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\",\"s\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=TVSS_005FUNIT/Order/@EntryValue">9</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=INCLINATION_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=INCLINATION_005FUNIT/Expression/@EntryValue">list("\"deg\",\"rad\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=INCLINATION_005FUNIT/Order/@EntryValue">10</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=AZIMUTH_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=AZIMUTH_005FUNIT/Expression/@EntryValue">list("\"deg\",\"rad\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=66E305B6F9D2784A8D7FA479D1C4A545/Field/=AZIMUTH_005FUNIT/Order/@EntryValue">11</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Shortcut/@EntryValue">je_cmd_createWell</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Description/@EntryValue">create a well</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Text/@EntryValue">var $FACTORY_NAME$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;Joa.JewelEarth.Services.IFactoryService&gt;();&#xD;
+&#xD;
+var $WELLCOMMAND$ = $FACTORY_NAME$.Create&lt;joaControlCommand.joaICommandCreateWell&gt;();&#xD;
+&#xD;
+$WELLCOMMAND$.SetName("$WELL_NAME$");&#xD;
+$WELLCOMMAND$.SetUnitSystem($NORTHING_UNIT$, $EASTING_UNIT$, $TVSS_UNIT$, $INCLINATION_UNIT$, $AZIMUTH_UNIT$);&#xD;
+$WELLCOMMAND$.SetParameters(Joa.JewelEarth.Wells.Enums.WellStatus.$WELL_STATUS$, joaWells.joaEWellType.$WELL_TYPE$, $WELL_NORTHING$, $WELL_EASTING$, $WELL_TVSS$, $WELL_DFE$);&#xD;
+$WELLCOMMAND$.AddWellBore("$WELLBORE_NAME$");&#xD;
+&#xD;
+var fakeLocations = new []&#xD;
+{&#xD;
+    new {Northing = $WELL_NORTHING$, Easting = $WELL_EASTING$, Tvss = $WELL_TVSS$},&#xD;
+    new {Northing = $WELL_NORTHING$, Easting = $WELL_EASTING$, Tvss = $WELL_TVSS$ +1000},&#xD;
+    new {Northing = $WELL_NORTHING$, Easting = $WELL_EASTING$, Tvss = $WELL_TVSS$ +2000},&#xD;
+};&#xD;
+&#xD;
+foreach (var location in fakeLocations)&#xD;
+{&#xD;
+    $WELLCOMMAND$.AddStation(location.Northing, location.Easting, location.Tvss);&#xD;
+}&#xD;&#xD;$END$</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=FACTORY_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=FACTORY_005FNAME/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=FACTORY_005FNAME/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELLCOMMAND/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELLCOMMAND/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELLCOMMAND/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FNAME/Expression/@EntryValue">constant("Name_Of_Well")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FNAME/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=NORTHING_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=NORTHING_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=NORTHING_005FUNIT/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=EASTING_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=EASTING_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=EASTING_005FUNIT/Order/@EntryValue">4</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=TVSS_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=TVSS_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\",\"s\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=TVSS_005FUNIT/Order/@EntryValue">5</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=INCLINATION_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=INCLINATION_005FUNIT/Expression/@EntryValue">list("\"deg\",\"rad\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=INCLINATION_005FUNIT/Order/@EntryValue">6</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=AZIMUTH_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=AZIMUTH_005FUNIT/Expression/@EntryValue">list("\"deg\",\"rad\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=AZIMUTH_005FUNIT/Order/@EntryValue">7</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FSTATUS/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FSTATUS/Expression/@EntryValue">list("Existing,Planned,Undefined")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FSTATUS/Order/@EntryValue">8</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FTYPE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FTYPE/Expression/@EntryValue">list("UNDEFINED,RBWATINJ,STBWATINJ,RBGASINJ,MCFINJ,STBOIL,MCF,MCFWET,STBLIQ,RBTOT,RBOIL,RBGAS,RBWAT,RBLIQ,STBWAT")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FTYPE/Order/@EntryValue">9</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FNORTHING/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FNORTHING/Expression/@EntryValue">constant("Northing")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FNORTHING/Order/@EntryValue">10</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FEASTING/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FEASTING/Expression/@EntryValue">constant("Easting")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FEASTING/Order/@EntryValue">11</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FTVSS/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FTVSS/Expression/@EntryValue">constant("Tvss_Depth")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FTVSS/Order/@EntryValue">12</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FDFE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FDFE/Expression/@EntryValue">constant("Derek_Floor_Elevation")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELL_005FDFE/Order/@EntryValue">13</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELLBORE_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELLBORE_005FNAME/Expression/@EntryValue">constant("Name_Of_Wellbore")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=0F6E443733C09B44BEFF0E1C09DED469/Field/=WELLBORE_005FNAME/Order/@EntryValue">14</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Shortcut/@EntryValue">je_cmd_deleteItem</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Description/@EntryValue">set up delete command to delete an item</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Text/@EntryValue">var $FACTORY_NAME$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;Joa.JewelEarth.Services.IFactoryService&gt;();&#xD;
+&#xD;
+var $JOACOMMANDDELETE$ = $FACTORY_NAME$.Create&lt;Joa.JewelEarth.Basics.Commands.IDeleteCommand&gt;();&#xD;
+$JOACOMMANDDELETE$.Add($IITEM$);&#xD;
+$JOACOMMANDDELETE$.SuppressMessages = $TRUEFALSE$;&#xD;
+$END$</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Field/=FACTORY_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Field/=FACTORY_005FNAME/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Field/=FACTORY_005FNAME/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Field/=JOACOMMANDDELETE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Field/=JOACOMMANDDELETE/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Field/=JOACOMMANDDELETE/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Field/=IITEM/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Field/=IITEM/Expression/@EntryValue">variableOfType("Joa.JewelEarth.Basics.IItem")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Field/=IITEM/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Field/=TRUEFALSE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Field/=TRUEFALSE/Expression/@EntryValue">list("true,false")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=A11D340C11529D4E958C43ECBABF4D6B/Field/=TRUEFALSE/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Shortcut/@EntryValue">je_cmd_deleteItems</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Description/@EntryValue">set up delete command to delete multiple items</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Text/@EntryValue">var $FACTORY_NAME$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;Joa.JewelEarth.Services.IFactoryService&gt;();&#xD;
+&#xD;
+var $JOACOMMANDDELETE$ = $FACTORY_NAME$.Create&lt;Joa.JewelEarth.Basics.Commands.IDeleteCommand&gt;();&#xD;
+foreach (joaIItem $ITEM_NAME$ in $ADMIN_OBJECT$)&#xD;
+{&#xD;
+    $JOACOMMANDDELETE$.Add($ITEM_NAME$);&#xD;
+}&#xD;
+$END$&#xD;</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Field/=ADMIN_005FOBJECT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Field/=ADMIN_005FOBJECT/Expression/@EntryValue">enumerableVariable()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Field/=ADMIN_005FOBJECT/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Field/=ITEM_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Field/=ITEM_005FNAME/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Field/=ITEM_005FNAME/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Field/=FACTORY_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Field/=FACTORY_005FNAME/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Field/=JOACOMMANDDELETE/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=1E14D1DD0DCDFD4B81472DB088104FB7/Field/=JOACOMMANDDELETE/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Shortcut/@EntryValue">je_cmd_nameColorUnit</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Text/@EntryValue">$COMMAND$.SetName("$NAME$");&#xD;
+$COMMAND$.SetColor($RED$, $GREEN$, $BLUE$, $ALPHA$);&#xD;
+$COMMAND$.SetUnitSystem($NORTHING_UNIT$, $EASTING_UNIT$, $TVSS_UNIT$, $INCLINATION_UNIT$, $AZIMUTH_UNIT$);&#xD;
+$END$&#xD;
+</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=COMMAND/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=COMMAND/Expression/@EntryValue">variableOfType("joaObjectsCommand.joaICommandCreateObjectGeom")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=COMMAND/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=NAME/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=NAME/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=RED/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=RED/Expression/@EntryValue">constant("0.56f")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=RED/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=GREEN/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=GREEN/Expression/@EntryValue">constant("0.0f")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=GREEN/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=BLUE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=BLUE/Expression/@EntryValue">constant("0.0f")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=BLUE/Order/@EntryValue">4</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=ALPHA/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=ALPHA/Expression/@EntryValue">constant("0.56f")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=ALPHA/Order/@EntryValue">5</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=NORTHING_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=NORTHING_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=NORTHING_005FUNIT/Order/@EntryValue">6</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=EASTING_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=EASTING_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=EASTING_005FUNIT/Order/@EntryValue">7</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=TVSS_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=TVSS_005FUNIT/Expression/@EntryValue">list("\"m\",\"ft\",\"s\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=TVSS_005FUNIT/Order/@EntryValue">8</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=INCLINATION_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=INCLINATION_005FUNIT/Expression/@EntryValue">list("\"deg\",\"rad\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=INCLINATION_005FUNIT/Order/@EntryValue">9</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=AZIMUTH_005FUNIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=AZIMUTH_005FUNIT/Expression/@EntryValue">list("\"deg\",\"rad\"")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=3A4A8AB0AF826A47ACB7438AF6A4C2E0/Field/=AZIMUTH_005FUNIT/Order/@EntryValue">10</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Shortcut/@EntryValue">je_cmd_updateProperty</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Description/@EntryValue">update property command</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Text/@EntryValue">// needs to already have an object of the type joaIObject, a property accessor and an array of new values for that property created &#xD;
+&#xD;
+var $FACTORY_SERVICE$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;Joa.JewelEarth.Services.IFactoryService&gt;();&#xD;
+var $PROPERTY_UPDATE_COMMAND$ = $FACTORY_SERVICE$.Create&lt;joaObjectsCommand.joaICommandPropertyUpdate&gt;();&#xD;
+$PROPERTY_UPDATE_COMMAND$.SetObject($JOAIOBJECT$);&#xD;
+$PROPERTY_UPDATE_COMMAND$.$UPDATE_METHOD$($JOAIPROPERTYACCESSORBASE$,$AN_ARRAY_OF_VALUES$);&#xD;
+$END$&#xD;
+&#xD;</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Field/=FACTORY_005FSERVICE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Field/=FACTORY_005FSERVICE/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Field/=FACTORY_005FSERVICE/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Field/=PROPERTY_005FUPDATE_005FCOMMAND/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Field/=PROPERTY_005FUPDATE_005FCOMMAND/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Field/=PROPERTY_005FUPDATE_005FCOMMAND/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Field/=JOAIOBJECT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Field/=JOAIOBJECT/Expression/@EntryValue">variableOfType("joaBasicObjects.joaIObject")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Field/=JOAIOBJECT/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Field/=UPDATE_005FMETHOD/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Field/=UPDATE_005FMETHOD/Expression/@EntryValue">list("SetValuesAsBool,SetValuesAsByte,SetValuesAsDouble,SetValuesAsFloat,SetValuesAsInt,SetValuesAsShort,SetValuesAsBool")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Field/=UPDATE_005FMETHOD/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Field/=JOAIPROPERTYACCESSORBASE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Field/=JOAIPROPERTYACCESSORBASE/Expression/@EntryValue">variableOfType("joaObjects.joaIPropertyAccessorBase")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Field/=JOAIPROPERTYACCESSORBASE/Order/@EntryValue">4</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Field/=AN_005FARRAY_005FOF_005FVALUES/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=F2537663BC66034AAE53D642C867B38B/Field/=AN_005FARRAY_005FOF_005FVALUES/Order/@EntryValue">5</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/Shortcut/@EntryValue">je_CommandGetCreatedObject</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/Text/@EntryValue">// only if Execute Succeeds and if executed from ExecuteAsync dont forget to put a .Wait() on the task&#xD;
+var $JOAIPOLYLINESET$ = $Command$.GetCreatedObject() as $JOAITEM_TYPE$;&#xD;
+if ($JOAIPOLYLINESET$ != null)&#xD;
+{&#xD;
+    $END$&#xD;
+}</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/Field/=Command/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/Field/=Command/Expression/@EntryValue">variableOfType("joaObjectsCommand.joaICommandCreateObject")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/Field/=Command/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/Field/=JOAITEM_005FTYPE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/Field/=JOAITEM_005FTYPE/Expression/@EntryValue">constant("TypeOfObjectThisCommandCreates")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/Field/=JOAITEM_005FTYPE/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/Field/=JOAIPOLYLINESET/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/Field/=JOAIPOLYLINESET/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=C2F5832D2EA77F45814ABF57DF1F2063/Field/=JOAIPOLYLINESET/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Shortcut/@EntryValue">je_CommandRunner</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Description/@EntryValue">command runner</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Text/@EntryValue">var $ICOMMANDRUNNER$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;Joa.JewelEarth.Services.ICommandRunner&gt;();&#xD;
+$ICOMMANDRUNNER$.ExecuteAsync($ICOMMAND$$SHOULD_WAIT$;&#xD;
+$END$</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Field/=ICOMMANDRUNNER/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Field/=ICOMMANDRUNNER/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Field/=ICOMMANDRUNNER/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Field/=SHOULD_005FWAIT/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Field/=SHOULD_005FWAIT/Expression/@EntryValue">list("),).Wait()")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Field/=SHOULD_005FWAIT/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Field/=ICOMMAND/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Field/=ICOMMAND/Expression/@EntryValue">variableOfType("Joa.JewelEarth.Basics.Commands.ICommand")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=AB759053E7AF754E85171B7099E2CDCB/Field/=ICOMMAND/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/Shortcut/@EntryValue">je_createFromFactory</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/Description/@EntryValue">instanciate a type from the factory service</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/Text/@EntryValue">var $FACTORY_NAME$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;Joa.JewelEarth.Services.IFactoryService&gt;();&#xD;
+var $OBJECT_NAME$ = $FACTORY_NAME$.Create&lt;$INTERFACE$&gt;();&#xD;
+$END$</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/Field/=FACTORY_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/Field/=FACTORY_005FNAME/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/Field/=FACTORY_005FNAME/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/Field/=INTERFACE/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/Field/=INTERFACE/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/Field/=OBJECT_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/Field/=OBJECT_005FNAME/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF5DC45A384DC0429CB1A1BB9A88DD82/Field/=OBJECT_005FNAME/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Shortcut/@EntryValue">je_createPropertyAccessor</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Description/@EntryValue">create a property accessor</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Text/@EntryValue">&#xD;
+var $JOAIFACTORYSERVICE$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;Joa.JewelEarth.Services.IFactoryService&gt;();&#xD;
+var $JOAITSURFACEPROPERTYACCESSOR$ = $JOAIFACTORYSERVICE$.Create&lt;$OF_TYPE_joaIPropertyAccessor$&gt;();&#xD;
+$JOAITSURFACEPROPERTYACCESSOR$.Type(Joa.JewelEarth.Basics.Enums.PropertyAccessorType.$ACCESSOR_TYPE$);&#xD;
+$END$</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Field/=JOAIFACTORYSERVICE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Field/=JOAIFACTORYSERVICE/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Field/=JOAIFACTORYSERVICE/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Field/=OF_005FTYPE_005FjoaIPropertyAccessor/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Field/=OF_005FTYPE_005FjoaIPropertyAccessor/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Field/=JOAITSURFACEPROPERTYACCESSOR/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Field/=JOAITSURFACEPROPERTYACCESSOR/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Field/=JOAITSURFACEPROPERTYACCESSOR/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Field/=ACCESSOR_005FTYPE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Field/=ACCESSOR_005FTYPE/Expression/@EntryValue">list("None,Full,SpecificIndices,SpecificLargeIndices,IndexRange,Time,Chunk,Ranges")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=925846A8DBB58544878E3FE79DE1A751/Field/=ACCESSOR_005FTYPE/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Shortcut/@EntryValue">je_lock</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Description/@EntryValue">obtains a lock on an object</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Text/@EntryValue">using (var $LOCKER_NAME$ = new $LOCK_TYPE$($OBJECT_TO_LOCK$))&#xD;
+{&#xD;
+    if (!$LOCKER_NAME$.LockApplied)&#xD;
+    {&#xD;
+        $SELSTART$//do something for already locked item$SELEND$&#xD;
+    }&#xD;
+&#xD;
+    // code if item is available&#xD;
+}</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Field/=LOCK_005FTYPE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Field/=LOCK_005FTYPE/Expression/@EntryValue">list("ReadLock,WriteLock")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Field/=LOCK_005FTYPE/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Field/=OBJECT_005FTO_005FLOCK/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Field/=OBJECT_005FTO_005FLOCK/Expression/@EntryValue">variableOfType("Joa.JewelEarth.Basics.Locking.ILockable")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Field/=OBJECT_005FTO_005FLOCK/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Field/=LOCKER_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Field/=LOCKER_005FNAME/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=92C91B3F2DEB0B458F7C7230F7FA23FF/Field/=LOCKER_005FNAME/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Shortcut/@EntryValue">je_openFiles</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Description/@EntryValue">to open files using a file service and reader</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Text/@EntryValue">var $FILE_IO_SERVICE_NAME$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;joaJewelUtilitiesUI.FileIO.joaIFileIOService&gt;();&#xD;
+var $READER_NAME$ = $FILE_IO_SERVICE_NAME$.GetReader(typeof ($TYPE_OF_joaItemStreamReader$));&#xD;
+if ($READER_NAME$ == null)&#xD;
+{&#xD;
+    return$RETURN_FAIL$;&#xD;
+}&#xD;
+&#xD;
+$FILE_IO_SERVICE_NAME$.OpenFiles(&#xD;
+    category: joaJewelUtilitiesUI.FileIO.KnownCategory.$IMPORT_TYPE$,&#xD;
+    type: $READER_NAME$.EntryType, &#xD;
+    title: "$TITLE$",&#xD;
+    multipleFileSelection: $MULTIPLE_FILE_SELECTION$, &#xD;
+    showDatavalidationWindow: $SHOW_DATA_VALIDATION_WINDOW$);&#xD;
+$END$</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=FILE_005FIO_005FSERVICE_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=FILE_005FIO_005FSERVICE_005FNAME/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=FILE_005FIO_005FSERVICE_005FNAME/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=TYPE_005FOF_005FjoaItemStreamReader/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=TYPE_005FOF_005FjoaItemStreamReader/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=READER_005FNAME/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=READER_005FNAME/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=READER_005FNAME/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=RETURN_005FFAIL/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=RETURN_005FFAIL/Expression/@EntryValue">list(" false, null,")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=RETURN_005FFAIL/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=IMPORT_005FTYPE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=IMPORT_005FTYPE/Expression/@EntryValue">list("Area,Fracture,GeologicalGrid,Grid,Grid3D,Grid3DProperty,Horizon,Image,Imager,Marker,Mesh3DProperty,Mesh3dGeom,Points,PolyLine,ProductionRate,Property,Seismic,Shape,SimulationGrid,TriangulatedSurface,Unknown,Well,WellDesign,WellLog")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=IMPORT_005FTYPE/Order/@EntryValue">4</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=TITLE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=TITLE/Expression/@EntryValue">constant("Put title of file box here")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=TITLE/Order/@EntryValue">5</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=MULTIPLE_005FFILE_005FSELECTION/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=MULTIPLE_005FFILE_005FSELECTION/Expression/@EntryValue">list("true,false")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=MULTIPLE_005FFILE_005FSELECTION/Order/@EntryValue">6</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=SHOW_005FDATA_005FVALIDATION_005FWINDOW/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=SHOW_005FDATA_005FVALIDATION_005FWINDOW/Expression/@EntryValue">list("true,false")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=8FDFA0EF2486DC459F623FF9B5138B9C/Field/=SHOW_005FDATA_005FVALIDATION_005FWINDOW/Order/@EntryValue">7</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Shortcut/@EntryValue">je_progressMonitor</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Description/@EntryValue">progress monitor for long running methods</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Text/@EntryValue">var $PROGRESS_MONITOR$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;Joa.JewelEarth.Services.IProgressMonitorService&gt;();&#xD;
+$PROGRESS_MONITOR$.Start(steps: $STEPS$, startText: "$STARTING_PROGRESS_MESSAGE$");&#xD;
+// Do Something&#xD;
+$PROGRESS_MONITOR$.Refresh("$NEXT_PROGRESS_MESSAGE$");&#xD;
+// Do Something else&#xD;
+$PROGRESS_MONITOR$.Stop("$FINAL_PROGRESS_MESSAGE$");&#xD;
+$END$</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Field/=PROGRESS_005FMONITOR/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Field/=PROGRESS_005FMONITOR/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Field/=PROGRESS_005FMONITOR/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Field/=STEPS/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Field/=STEPS/Expression/@EntryValue">list("1,2,3,4,5,6,7,8,9,10,11,12")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Field/=STEPS/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Field/=STARTING_005FPROGRESS_005FMESSAGE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Field/=STARTING_005FPROGRESS_005FMESSAGE/Expression/@EntryValue">constant("Starting Progress message ...")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Field/=STARTING_005FPROGRESS_005FMESSAGE/Order/@EntryValue">2</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Field/=NEXT_005FPROGRESS_005FMESSAGE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Field/=NEXT_005FPROGRESS_005FMESSAGE/Expression/@EntryValue">constant("Next Progress message...")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Field/=NEXT_005FPROGRESS_005FMESSAGE/Order/@EntryValue">3</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Field/=FINAL_005FPROGRESS_005FMESSAGE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Field/=FINAL_005FPROGRESS_005FMESSAGE/Expression/@EntryValue">constant("Cancelled Progress Message...")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=BF12A6598E8F2045A16BD67BC9D0CD4E/Field/=FINAL_005FPROGRESS_005FMESSAGE/Order/@EntryValue">4</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=513F2804833B3D42B9D9C880495E182C/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=513F2804833B3D42B9D9C880495E182C/Shortcut/@EntryValue">je_svc</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=513F2804833B3D42B9D9C880495E182C/Description/@EntryValue">Create a Service</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=513F2804833B3D42B9D9C880495E182C/Text/@EntryValue">var $SERVICE$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;$SERVICE_TYPE$&gt;();&#xD;
+$END$&#xD;
+</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=513F2804833B3D42B9D9C880495E182C/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=513F2804833B3D42B9D9C880495E182C/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=513F2804833B3D42B9D9C880495E182C/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=513F2804833B3D42B9D9C880495E182C/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=513F2804833B3D42B9D9C880495E182C/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=513F2804833B3D42B9D9C880495E182C/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=513F2804833B3D42B9D9C880495E182C/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">2.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=513F2804833B3D42B9D9C880495E182C/Field/=SERVICE_005FTYPE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=513F2804833B3D42B9D9C880495E182C/Field/=SERVICE_005FTYPE/Expression/@EntryValue">list("ICommandRunner,joaIDataService,IDataService,IFactoryService,IMessageService,IProgressMonitorService,IResourceService,IWorkspaceService,IGeodeticService,ISolutionGeospatialContext,IActionService,IUiService,IGroupSupportService,IJewelExplorerControllerService,IJewelExplorerQueryService,IJewelExplorerUiService,IJewelExplorerUpdateCacheService,IJewelExplorerVisibilityService")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=513F2804833B3D42B9D9C880495E182C/Field/=SERVICE_005FTYPE/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=513F2804833B3D42B9D9C880495E182C/Field/=SERVICE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=513F2804833B3D42B9D9C880495E182C/Field/=SERVICE/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=513F2804833B3D42B9D9C880495E182C/Field/=SERVICE/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/Shortcut/@EntryValue">je_svc_message</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/Description/@EntryValue">pass a message to the message service</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/Text/@EntryValue">var $MESSAGE_SERVICE$ = Joa.JewelEarth.Services.ServiceLocator.GetInstanceOf&lt;Joa.JewelEarth.Services.IMessageService&gt;();&#xD;
+$MESSAGE_SERVICE$.$MESSAGE_TYPE$("$MESSAGE$");</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/Reformat/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/ShortenQualifiedReferences/@EntryValue">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/Categories/=JewelEarthSDK/@EntryIndexedValue">JewelEarthSDK</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/Applicability/=Live/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/Scope/=C3001E7C0DA78E4487072B7E050D86C5/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/Scope/=C3001E7C0DA78E4487072B7E050D86C5/Type/@EntryValue">InCSharpFile</s:String>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/Scope/=C3001E7C0DA78E4487072B7E050D86C5/CustomProperties/=minimumLanguageVersion/@EntryIndexedValue">5.0</s:String>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/Field/=MESSAGE_005FSERVICE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/Field/=MESSAGE_005FSERVICE/Expression/@EntryValue">suggestVariableName()</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/Field/=MESSAGE_005FSERVICE/Order/@EntryValue">0</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/Field/=MESSAGE/@KeyIndexDefined">True</s:Boolean>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/Field/=MESSAGE/Order/@EntryValue">1</s:Int64>
+	<s:Boolean x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/Field/=MESSAGE_005FTYPE/@KeyIndexDefined">True</s:Boolean>
+	<s:String x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/Field/=MESSAGE_005FTYPE/Expression/@EntryValue">list("ErrorMessage,WarningMessage,InfoMessage,LogMessage")</s:String>
+	<s:Int64 x:Key="/Default/PatternsAndTemplates/LiveTemplates/Template/=18FF159F6A52F24EAC9FFFB25CBC2142/Field/=MESSAGE_005FTYPE/Order/@EntryValue">2</s:Int64></wpf:ResourceDictionary>
